@@ -9,14 +9,13 @@ import argparse
 # args = parser.parse_args()
 
 
-paper = cv2.imread('/Users/utsavmdesai/Documents/Coding/CV/paper.jpeg')
-overlay_img = cv2.imread('/Users/utsavmdesai/Documents/Coding/CV/overlay.jpeg')
 
 
 
 def projective_transform(paper_img, overlay_img):
 
 	# converting to grayscale since the threshloding requires grayscale image
+
 	gray_paper_img = cv2.cvtColor(paper_img, cv2.COLOR_BGR2GRAY)
 
 	# gaussian blur
@@ -60,13 +59,13 @@ def projective_transform(paper_img, overlay_img):
 	cor_x = sorted(cor_x)
 	cor_y = sorted(cor_y)
 
-	print(cor_x)
-	print(cor_y)
+	# print(cor_x)
+	# print(cor_y)
 
 	icorners = [[], [], [], []]
 	for corner in corners:
 		pt = [corner[0][0], corner[0][1]]
-		print(pt)
+		# print(pt)
 		if corner[0][0] in cor_x[2:]:
 			if corner[0][1] in cor_y[2:]:
 				icorners[3] = pt
@@ -77,7 +76,7 @@ def projective_transform(paper_img, overlay_img):
 				icorners[1] = pt
 			else:
 				icorners[0] = pt
-	print(icorners)
+	# print(icorners)
 
 	icorners = np.float32(icorners)
 	h, w, c = overlay_img.shape
@@ -94,48 +93,49 @@ def projective_transform(paper_img, overlay_img):
 
 
 
+paper = cv2.imread('paper1.jpeg')
+overlay_img = cv2.imread('overlay.jpeg')
+
+final_img, corners = projective_transform(paper, overlay_img)
+print(corners)
 
 
-# final_img, corners = projective_transform(paper, overlay_img)
-# print(corners)
-
-
-# cv2.imshow('output', paper)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
-# cv2.imshow('output', final_img)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
-# cv2.imwrite('/Users/utsavmdesai/Documents/Coding/CV/results' + os.sep + 'result.jpg', final_img)
-
-
-
-
-
-
-
-
-video = cv2.VideoCapture('/Users/utsavmdesai/Documents/Coding/CV/video.mp4')
-
-frameSize = (500, 500)
-out = cv2.VideoWriter('/Users/utsavmdesai/Documents/Coding/CV/results/output_video.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 30, frameSize)
-
-
-i = 0
-while(video.isOpened()):
-	i += 1
-	ret, frame = video.read()
-	modified_frame, corners = projective_transform(frame, overlay_img)
-	out.write(modified_frame)
-	if ret == True:
-		cv2.imshow('Frame', modified_frame)
-
-		if cv2.waitKey(25) & 0xFF == ord('q'):
-			break
-	else:
-		break
-video.release()
+cv2.imshow('output', paper)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
-print(i)
+
+cv2.imshow('output', final_img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+cv2.imwrite('results' + os.sep + 'result.jpg', final_img)
+
+
+
+
+
+
+
+
+# video = cv2.VideoCapture('/Users/utsavmdesai/Documents/Coding/CV/video.mp4')
+
+# frameSize = (500, 500)
+# out = cv2.VideoWriter('/Users/utsavmdesai/Documents/Coding/CV/results/output_video.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 30, frameSize)
+
+
+# i = 0
+# while(video.isOpened()):
+# 	i += 1
+# 	ret, frame = video.read()
+# 	modified_frame, corners = projective_transform(frame, overlay_img)
+# 	out.write(modified_frame)
+# 	if ret == True:
+# 		cv2.imshow('Frame', modified_frame)
+
+# 		if cv2.waitKey(25) & 0xFF == ord('q'):
+# 			break
+# 	else:
+# 		break
+# video.release()
+# cv2.destroyAllWindows()
+# print(i)

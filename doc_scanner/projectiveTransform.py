@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
 
-img = cv2.imread('/Users/utsavmdesai/Downloads/5579942.jpg')
+img = cv2.imread('paper1.jpeg')
 
 h, w, c = img.shape
 
 img_coords = np.array([[0, 0], [0, h], [w, 0], [w, h]])
 
-board = cv2.imread('/Users/utsavmdesai/Documents/Coding/CV/board.jpg')
+board = cv2.imread('board.jpg')
 
 new_coords = []
 
