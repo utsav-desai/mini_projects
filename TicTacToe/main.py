@@ -15,8 +15,17 @@ def check_end(circles, crosses):
       return 1
     elif (all(x in crosses for x in end)):
       print('Cross player wins')
-      return 1
+      return 2
   return 0
+
+
+def add_winner(image, winner):
+  if winner == 1: # Circle wins
+    image = cv2.putText(image, 'Circle Player wins', org = (800, 200), color = (0, 0, 255), fontFace = cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1, thickness = 2)
+  elif winner == 2: # Cross wins
+    image = cv2.putText(image, 'Cross Player wins', org = (800, 200), color = (0, 255, 0), fontFace = cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1, thickness = 2)
+  
+  return image
 
 def draw_shape(image, it, box_num):
   # box_num = get_box_number(coords)
@@ -98,6 +107,7 @@ with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) a
     cv2.line(image, (140, 460), (740, 460), (255, 0, 0), 2)
 
     image = draw_all_shapes(image, circles, crosses)
+    image = add_winner(image, done_game)
     if not(done_game):
       done_game = check_end(circles, crosses)
       end_at = time.time() + 5
