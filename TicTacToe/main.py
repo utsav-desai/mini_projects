@@ -28,14 +28,13 @@ def draw_shape(image, it, box_num):
     cv2.line(image, (center[0] + 80, center[1] - 80), (center[0] - 80, center[1] + 80), (0, 255, 0), 2)
   return image
 
-def draw_all_shapes(image, circles, crosses, done_game):
-  if not done_game:
-    if circles:
-      for c in circles:
-        image = draw_shape(image, 0, c)
-    if crosses:
-      for c in crosses:
-        image = draw_shape(image, 1, c)
+def draw_all_shapes(image, circles, crosses):
+  if circles:
+    for c in circles:
+      image = draw_shape(image, 0, c)
+  if crosses:
+    for c in crosses:
+      image = draw_shape(image, 1, c)
   return image
 
 def get_box_number(coords):
@@ -98,43 +97,46 @@ with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) a
     cv2.line(image, (140, 260), (740, 260), (255, 0, 0), 2)
     cv2.line(image, (140, 460), (740, 460), (255, 0, 0), 2)
 
-    image = draw_all_shapes(image, circles, crosses, done_game)
+    image = draw_all_shapes(image, circles, crosses)
     if not(done_game):
       done_game = check_end(circles, crosses)
       end_at = time.time() + 5
 
     if results.multi_hand_landmarks:
       for hand_landmarks in results.multi_hand_landmarks:
-        if abs(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].z) > 0.1 and time.time() - click_time > 1:
-          coords = (hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * 1280, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * 720)
-          box_number = get_box_number(coords)
-          if box_number != -1:
-            if box_number not in boxes:
-              continue
-            if len(boxes) == 1:
-              image = draw_shape(image, it, box_number)
-              if not (done_game):
-                done_game = check_end(circles, crosses)
-                end_at = time.time() + 5
+        if not done_game:
+          if abs(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].z) > 0.1 and time.time() - click_time > 1:
+            coords = (hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * 1280, hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * 720)
+            box_number = get_box_number(coords)
+            if box_number != -1:
+              if box_number not in boxes:
+                continue
+              if len(boxes) == 1:
+                image = draw_shape(image, it, box_number)
+                if not (done_game):
+                  done_game = check_end(circles, crosses)
+                  end_at = time.time() + 5
 
-            if it == 0:
-              circles.append(box_number)
-            else:
-              crosses.append(box_number)
-            it = 1 - it
-            boxes.remove(box_number)
+              if it == 0:
+                circles.append(box_number)
+              else:
+                crosses.append(box_number)
+              it = 1 - it
+              boxes.remove(box_number)
+        else:
+          continue
 
 
           click_time = time.time()
-        mp_drawing.draw_landmarks(
-            image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+      mp_drawing.draw_landmarks(
+          image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
     if time.time() >= end_at:
       break
     cv2.imshow('MediaPipe Hands', image)
     if boxes == [] and not(done_game):
       print('Game Over !!!')
-      end_at = time.time() + 5
+      end_at = time.time() + 3
       done_game = True
     if cv2.waitKey(5) & 0xFF == 27:
       break
