@@ -82,6 +82,8 @@ it = 0  # circle start first
 boxes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
   while cap.isOpened():
+    if cv2.waitKey(5) & 0xFF == 27:
+      break
     success, image = cap.read()
     if not success:
       print("Ignoring empty camera frame.")
@@ -150,6 +152,4 @@ with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5) a
       print('Game Over !!!')
       end_at = time.time() + 2
       done_game = 3
-    if cv2.waitKey(5) & 0xFF == 27:
-      break
 cap.release()
