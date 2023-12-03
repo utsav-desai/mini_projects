@@ -14,7 +14,7 @@ To imlpement the game, go to the file *main.py* in the TicTacToe folder. Type th
 
 Thenafter a camera window will pop up with the game square. You can fill the shapes by just clicking the shapes in the air(distance from the screen for clicking can be determined by hit and trial). Circle player will have first turn in the game followed by cross player.
 
-![Sample Window](TicTacToe\tictactoe.jpeg)
+![Sample Window](TicTacToe/tictactoe.jpeg)
 
 # [Doc scanner](/doc_scanner/)
 
