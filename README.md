@@ -8,9 +8,14 @@ In this repository you can find all of my mini projects related mainly related t
 
 This is a simple TicTacToe game, but it is played using the webcam and hands. I have used Google's Mediapipe for determining the hand coordinated and then some basic Computer Vision/Image Processing tools.(PS: This project was completed in 1 hr :P)
 
+To imlpement the game, go to the file *main.py* in the TicTacToe folder. Type the following command in the terminal:
 
+`python main.py`
+
+Thenafter the camera window will pop up with the game square. You can fill the shapes by just clicking the shapes in the air(distance from the screen for clicking can be determined by hit and trial). Circle player will have first turn in the game followed by cross player.
 
 
 # [Doc scanner](/doc_scanner/)
 
 This is a camera module which can be used scan the documents. You can upload any image of a document, and the code will run some image processing on it to identify the corners and align it with the screen and save the final image in the same folder.
+
