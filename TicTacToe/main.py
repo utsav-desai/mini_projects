@@ -7,7 +7,7 @@ mp_hands = mp.solutions.hands
 
 box_centers = {0:(240, 160), 1:(440, 160), 2:(640, 160), 3:(240, 360), 4:(440, 360), 5:(640, 360), 6:(240, 560), 7:(440, 560), 8:(640, 560)}
 
-def check_end(circles, crosses):
+def check_end(circles, crosses):  # function to check if the game has ended
   ends = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
   for end in ends:
     if (all(x in circles for x in end)):
@@ -19,7 +19,7 @@ def check_end(circles, crosses):
   return 0
 
 
-def add_winner(image, winner):
+def add_winner(image, winner):  # function to print the winner's name on the camera frame
   if winner == 1: # Circle wins
     image = cv2.putText(image, 'Circle Player wins', org = (800, 200), color = (0, 0, 255), fontFace = cv2.FONT_HERSHEY_SIMPLEX, fontScale = 1, thickness = 2)
   elif winner == 2: # Cross wins
@@ -27,7 +27,7 @@ def add_winner(image, winner):
   
   return image
 
-def draw_shape(image, it, box_num):
+def draw_shape(image, it, box_num): # draw the given shape at the box number
   # box_num = get_box_number(coords)
   center = box_centers[box_num]
   if it == 0: # circle turn
@@ -37,7 +37,7 @@ def draw_shape(image, it, box_num):
     cv2.line(image, (center[0] + 80, center[1] - 80), (center[0] - 80, center[1] + 80), (0, 255, 0), 2)
   return image
 
-def draw_all_shapes(image, circles, crosses):
+def draw_all_shapes(image, circles, crosses): # draw all the shaped of the game at the start of every frame
   if circles:
     for c in circles:
       image = draw_shape(image, 0, c)
@@ -46,7 +46,7 @@ def draw_all_shapes(image, circles, crosses):
       image = draw_shape(image, 1, c)
   return image
 
-def get_box_number(coords):
+def get_box_number(coords): # get the box number where the finger tip lies
   if coords[0] >= 140 and coords[0] < 340:
     if coords[1] >= 60 and coords[1] < 260:
       return 0
