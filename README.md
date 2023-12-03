@@ -6,7 +6,10 @@ In this repository you can find all of my mini projects related mainly related t
 
 # [TicTacToe](/TicTacToe/)
 
-This is a simple TicTacToe game, but it is played using the webcam and hands. I have used Google's Mediapipe for determining the hand coordinated and then some basic Computer Vision/Image Processing tools.(PS: This project was completed in 1 hr ;)
+This is a simple TicTacToe game, but it is played using the webcam and hands. I have used Google's Mediapipe for determining the hand coordinated and then some basic Computer Vision/Image Processing tools.(PS: This project was completed in 1 hr :P)
+
+
+
 
 # [Doc scanner](/doc_scanner/)
 
