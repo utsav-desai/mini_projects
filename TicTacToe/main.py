@@ -11,10 +11,14 @@ def check_end(circles, crosses):  # function to check if the game has ended
   ends = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
   for end in ends:
     if (all(x in circles for x in end)):
-      print('Circle player wins')
+      print('-' * 60)
+      print('-' * 20, 'CIRCLE PLAYER WINS', '-' * 20)
+      print('-' * 60)
       return 1
     elif (all(x in crosses for x in end)):
-      print('Cross player wins')
+      print('-' * 59)
+      print('-' * 20, 'CROSS PLAYER WINS', '-' * 20)
+      print('-' * 59)
       return 2
   return 0
 
