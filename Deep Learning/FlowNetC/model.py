@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn as nn
-from utils import conv, deconv, predict_flow, crop_like
+from utils import conv, deconv, predict_flow, crop_like, correlate
 from torch.nn.init import kaiming_normal_, constant_
 
 
