@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/utsavmdesai/Documents/Coding/CV/mini_projects/Deep%20Learning/Transformers-AUVSI/mlruns/0/073885b154934c5fb46b8249d39c487d/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 073885b154934c5fb46b8249d39c487d
+run_name: auvsi_letters_classification
+run_uuid: 073885b154934c5fb46b8249d39c487d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1703272053949
+status: 1
+tags: []
+user_id: utsavmdesai
